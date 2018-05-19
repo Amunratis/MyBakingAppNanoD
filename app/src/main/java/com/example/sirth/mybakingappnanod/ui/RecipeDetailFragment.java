@@ -1,23 +1,24 @@
-package com.example.sirth.mybakingappnanod;
+package com.example.sirth.mybakingappnanod.ui;
 
 import android.app.Activity;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.sirth.mybakingappnanod.dummy.DummyContent;
+import com.example.sirth.mybakingappnanod.R;
+import com.example.sirth.mybakingappnanod.baseClasses.BaseFragment;
+import com.example.sirth.mybakingappnanod.data.DummyContent;
 
 /**
  * A fragment representing a single Item detail screen.
- * This fragment is either contained in a {@link ItemListActivity}
- * in two-pane mode (on tablets) or a {@link ItemDetailActivity}
+ * This fragment is either contained in a {@link MainActivity}
+ * in two-pane mode (on tablets) or a {@link RecipeDetailActivity}
  * on handsets.
- */
-public class ItemDetailFragment extends Fragment {
+ *//*TODO I will use this fragment for the view of */
+public class RecipeDetailFragment extends BaseFragment {
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -33,7 +34,7 @@ public class ItemDetailFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ItemDetailFragment() {
+    public RecipeDetailFragment() {
     }
 
     @Override
