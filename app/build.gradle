@@ -24,8 +24,11 @@ dependencies {
 
 
     // apt command comes from the android-apt plugin
-    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
     implementation "com.google.dagger:dagger:$dagger_version"
+    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
+    implementation "com.google.dagger:dagger-android-support:$dagger_version"
+
+
     compileOnly "javax.annotation:jsr250-api:1.0"
 
     //https://blog.novatec-gmbh.de/databinding-recyclerview/
@@ -43,9 +46,12 @@ dependencies {
     testImplementation "junit:junit:4.12"
     androidTestImplementation "com.android.support.test:runner:1.0.2"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:3.0.2"
-    implementation "com.squareup.okhttp3:okhttp:$okHttop_version"
-    implementation "com.squareup.okio:okio:$okio_version"
+    implementation "com.squareup.okhttp3:okhttp:3.10"
+    implementation "com.squareup.okio:okio:"
 
+
+    implementation 'com.google.code.gson:gson:2.8.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 
     implementation"android.arch.lifecycle:runtime:$arch_version"
     implementation"android.arch.lifecycle:extensions:$arch_version"
