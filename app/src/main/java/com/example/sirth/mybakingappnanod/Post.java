@@ -1,6 +1,6 @@
 package com.example.sirth.mybakingappnanod;
 
-public class Post {
+public class Post {//Example POJO classs for dagger implementation
     String title;
     String body;
 

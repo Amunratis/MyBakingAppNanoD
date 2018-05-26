@@ -17,7 +17,8 @@ public class BaseActivity extends AppCompatActivity{
     @Inject public Retrofit retrofit;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable
+            PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
         ((App) getApplication()).getNetComponent().inject(this);
     }

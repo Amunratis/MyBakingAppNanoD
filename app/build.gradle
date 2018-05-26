@@ -18,6 +18,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding.enabled true;
 }
 
 dependencies {
@@ -34,13 +35,12 @@ dependencies {
     //https://blog.novatec-gmbh.de/databinding-recyclerview/
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    implementation "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:2.2.0"
-    implementation "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:2.2.0"
+    implementation "com.github.nitrico.lastadapter:lastadapter:2.0.0"
 
 
     implementation "com.squareup.retrofit2:retrofit:2.4.0"
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.41'
     implementation "com.android.support:appcompat-v7:$support_version"
-    implementation "com.android.support:support-v4:$support_version"
     implementation "com.android.support:recyclerview-v7:$support_version"
     implementation "com.android.support:design:$support_version"
     testImplementation "junit:junit:4.12"
@@ -48,6 +48,8 @@ dependencies {
     androidTestImplementation "com.android.support.test.espresso:espresso-core:3.0.2"
     implementation "com.squareup.okhttp3:okhttp:3.10"
     implementation "com.squareup.okio:okio:"
+
+
 
 
     implementation 'com.google.code.gson:gson:2.8.1'
