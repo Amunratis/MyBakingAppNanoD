@@ -48,6 +48,7 @@ dependencies {
     androidTestImplementation "com.android.support.test.espresso:espresso-core:3.0.2"
     implementation "com.squareup.okhttp3:okhttp:3.10"
     implementation "com.squareup.okio:okio:"
+    implementation "com.squareup.okhttp3:logging-interceptor:3.10.0"
 
 
 
@@ -60,6 +61,7 @@ dependencies {
     annotationProcessor "android.arch.lifecycle:compiler:$arch_version"
     implementation"android.arch.persistence.room:runtime:$arch_version"
     annotationProcessor "android.arch.persistence.room:compiler:$arch_version"
+
 
     annotationProcessor "android.arch.persistence.room:compiler:$arch_version"
 }

@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <variable name="item" type="com.example.sirth.mybakingappnanod.data.CakeContent" />
+        <variable name="item" type="com.example.sirth.mybakingappnanod.data.Name" />
     </data>
 
 <LinearLayout
@@ -10,16 +10,8 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-
     <TextView
-        android:id="@+id/id_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
-
-    <TextView
-        android:id="@+id/content"
+        android:text="@{item.name}"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"

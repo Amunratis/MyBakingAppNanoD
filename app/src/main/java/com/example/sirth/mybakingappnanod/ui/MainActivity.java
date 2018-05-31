@@ -1,19 +1,30 @@
 package com.example.sirth.mybakingappnanod.ui;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.sirth.mybakingappnanod.App;
 import com.example.sirth.mybakingappnanod.BR;
 import com.example.sirth.mybakingappnanod.R;
 import com.example.sirth.mybakingappnanod.baseClasses.BaseActivity;
-import com.example.sirth.mybakingappnanod.data.CakeContent;
+import com.example.sirth.mybakingappnanod.data.Name;
+import com.example.sirth.mybakingappnanod.networking.CakePOJO;
+import com.example.sirth.mybakingappnanod.networking.RestApi;
 import com.github.nitrico.lastadapter.LastAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -26,12 +37,16 @@ import com.github.nitrico.lastadapter.LastAdapter;
  */
 public class MainActivity extends BaseActivity {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
 
     private boolean mTwoPane;
+    private List<Name> names = new ArrayList<>();
+
+    Context context=getApplicationContext();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,17 +78,60 @@ public class MainActivity extends BaseActivity {
         View recyclerView = findViewById(R.id.item_list);
         assert recyclerView != null;
 
-       LastAdapter.with(CakeContent.ITEMS, BR.item)
-                .map(CakeContent.Cake.class,  R.layout.activity_item_list)
-                .into((RecyclerView)recyclerView);
+
+        try {
+            Call<List<CakePOJO>> cakes= retrofit.create(RestApi.class).getCakes();
+
+          cakes.enqueue(new Callback<List<CakePOJO>>() {
+                @Override
+                public void onResponse(  Call<List<CakePOJO>> call, Response<List<CakePOJO>> response) {
 
 
-    }
+
+                    if(response.isSuccessful())
+                    {
+                        List<CakePOJO> cakes = response.body();
+                        /*for (CakePOJO cakePOJO : cakes) {
+                            names.add(cakePOJO.getName());
+                        }
+                        Toast.makeText(MainActivity.this, names.get(0), Toast
+                                .LENGTH_LONG).show();*/
+                        names.add(0,new Name("1"));
+                        names.add(1,new Name("2"));
+
+                        Toast.makeText(context, names.get(0).getName(), Toast
+                                .LENGTH_LONG).show();
 
 
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, CakeContent.ITEMS, mTwoPane));
+                    }
+
+                }
+
+                @Override
+                public void onFailure(  Call<List<CakePOJO>> call, Throwable t) {
+                    Log.d("Error", t.getMessage());
+                    Toast.makeText(MainActivity.this, "Error Fetching Data!", Toast
+                            .LENGTH_LONG).show();
+                }
+            });
+        } catch (Exception e) {
+            Log.d("Error", e.getMessage());
+            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
+        }
+
+        LastAdapter.with(names, BR.item, false)
+                .map(Name.class, R.layout.item_list_content)
+                .into((RecyclerView) recyclerView);
+
     }
 
 
 }
+
+
+    /*private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, CakeContent.ITEMS, mTwoPane));
+    }*/
+
+
+
