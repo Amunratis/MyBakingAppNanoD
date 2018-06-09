@@ -1,6 +1,6 @@
 package com.example.sirth.mybakingappnanod.data;
 
-public class Name {
+public class  Name {
     String name;
 
     public Name(String name) {

@@ -2,16 +2,20 @@ package com.example.sirth.mybakingappnanod.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.example.sirth.mybakingappnanod.R;
 import com.example.sirth.mybakingappnanod.baseClasses.BaseActivity;
+import com.example.sirth.mybakingappnanod.networking.CakePOJO;
+import com.example.sirth.mybakingappnanod.networking.Ingredient;
+import com.example.sirth.mybakingappnanod.networking.Step;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An activity representing a single Item detail screen. This
@@ -23,6 +27,18 @@ import com.example.sirth.mybakingappnanod.baseClasses.BaseActivity;
 /*TODO I will use this  activity for the view of video*/
 public class RecipeDetailActivity extends BaseActivity {
 
+
+    CakePOJO cakePOJO;
+    private Integer id;
+    private String name;
+    private List<Ingredient> ingredients = new ArrayList<Ingredient>();
+    private List<Step> steps = new ArrayList<Step>();
+    private Integer servings;
+    private String image;
+    RecyclerView recyclerView;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,20 +46,21 @@ public class RecipeDetailActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+        cakePOJO = getIntent().getParcelableExtra("parcel");
+
+
+        //Setup RecyclerView
+        recyclerView=findViewById(R.id.ingredients);
+
+        recyclerView.setAdapter(new RecipeDetailActivityAdapter(RecipeDetailActivity.this,
+                cakePOJO));
+
+
 
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity

@@ -19,7 +19,7 @@ buildscript {
 ext.$okHttp_version="2.10.0"
 ext.$okio_version="1.14"
 ext.arch_version = "1.1.0"
-ext.support_version = "26.1.0"
+ext.support_version = "27.1.0"
 ext.dagger_version="2.13"
 
 allprojects {

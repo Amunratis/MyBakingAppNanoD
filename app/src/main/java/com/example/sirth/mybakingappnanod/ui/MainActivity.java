@@ -1,23 +1,17 @@
 package com.example.sirth.mybakingappnanod.ui;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.sirth.mybakingappnanod.App;
-import com.example.sirth.mybakingappnanod.BR;
 import com.example.sirth.mybakingappnanod.R;
 import com.example.sirth.mybakingappnanod.baseClasses.BaseActivity;
 import com.example.sirth.mybakingappnanod.data.Name;
 import com.example.sirth.mybakingappnanod.networking.CakePOJO;
 import com.example.sirth.mybakingappnanod.networking.RestApi;
-import com.github.nitrico.lastadapter.LastAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +31,7 @@ import retrofit2.Response;
  */
 public class MainActivity extends BaseActivity {
 
+    public static final List<CakePOJO> names = new ArrayList<>();
     private static final String TAG = MainActivity.class.getSimpleName();
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -44,9 +39,6 @@ public class MainActivity extends BaseActivity {
      */
 
     private boolean mTwoPane;
-    private List<Name> names = new ArrayList<>();
-
-    Context context=getApplicationContext();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +50,6 @@ public class MainActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         if (findViewById(R.id.item_detail_container) != null) {
             // The detail container view will be present only in the
@@ -75,40 +59,25 @@ public class MainActivity extends BaseActivity {
             mTwoPane = true;
         }
 
-        View recyclerView = findViewById(R.id.item_list);
+        final RecyclerView recyclerView = findViewById(R.id.item_list);
         assert recyclerView != null;
 
 
         try {
-            Call<List<CakePOJO>> cakes= retrofit.create(RestApi.class).getCakes();
+            Call<List<CakePOJO>> cakes = retrofit.create(RestApi.class).getCakes();
 
-          cakes.enqueue(new Callback<List<CakePOJO>>() {
+            cakes.enqueue(new Callback<List<CakePOJO>>() {
                 @Override
-                public void onResponse(  Call<List<CakePOJO>> call, Response<List<CakePOJO>> response) {
+                public void onResponse(Call<List<CakePOJO>> call, Response<List<CakePOJO>> response) {
 
+                    List<CakePOJO> cakes = response.body();
 
-
-                    if(response.isSuccessful())
-                    {
-                        List<CakePOJO> cakes = response.body();
-                        /*for (CakePOJO cakePOJO : cakes) {
-                            names.add(cakePOJO.getName());
-                        }
-                        Toast.makeText(MainActivity.this, names.get(0), Toast
-                                .LENGTH_LONG).show();*/
-                        names.add(0,new Name("1"));
-                        names.add(1,new Name("2"));
-
-                        Toast.makeText(context, names.get(0).getName(), Toast
-                                .LENGTH_LONG).show();
-
-
-                    }
+                    recyclerView.setAdapter(new MainActivityRecyclerViewAdapter(MainActivity.this, cakes, mTwoPane));
 
                 }
 
                 @Override
-                public void onFailure(  Call<List<CakePOJO>> call, Throwable t) {
+                public void onFailure(Call<List<CakePOJO>> call, Throwable t) {
                     Log.d("Error", t.getMessage());
                     Toast.makeText(MainActivity.this, "Error Fetching Data!", Toast
                             .LENGTH_LONG).show();
@@ -118,20 +87,12 @@ public class MainActivity extends BaseActivity {
             Log.d("Error", e.getMessage());
             Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
         }
-
-        LastAdapter.with(names, BR.item, false)
-                .map(Name.class, R.layout.item_list_content)
-                .into((RecyclerView) recyclerView);
-
     }
 
 
 }
 
 
-    /*private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, CakeContent.ITEMS, mTwoPane));
-    }*/
 
 
 
