@@ -1,15 +1,13 @@
 package com.example.sirth.mybakingappnanod.ui;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.sirth.mybakingappnanod.R;
 import com.example.sirth.mybakingappnanod.baseClasses.BaseFragment;
+import com.example.sirth.mybakingappnanod.ui.RecipeDetailActivity.RecipeDetailActivity;
 
 /**
  * A fragment representing a single Item detail screen.
@@ -44,13 +42,7 @@ public class RecipeDetailFragment extends BaseFragment {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-
-            Activity activity = this.getActivity();
-            CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
-            if (appBarLayout != null) {
-
             }
-        }
     }
 
     @Override

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.sirth.mybakingappnanod.R;
 import com.example.sirth.mybakingappnanod.networking.CakePOJO;
+import com.example.sirth.mybakingappnanod.ui.RecipeDetailActivity.RecipeDetailActivity;
 
 import java.util.List;
 

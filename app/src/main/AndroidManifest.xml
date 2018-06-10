@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.RecipeDetailActivity"
+            android:name=".ui.RecipeDetailActivity.RecipeDetailActivity"
             android:label="@string/title_item_detail"
             android:parentActivityName=".ui.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">

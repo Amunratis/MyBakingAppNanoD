@@ -9,9 +9,9 @@ import android.widget.Toast;
 import com.example.sirth.mybakingappnanod.App;
 import com.example.sirth.mybakingappnanod.R;
 import com.example.sirth.mybakingappnanod.baseClasses.BaseActivity;
-import com.example.sirth.mybakingappnanod.data.Name;
 import com.example.sirth.mybakingappnanod.networking.CakePOJO;
 import com.example.sirth.mybakingappnanod.networking.RestApi;
+import com.example.sirth.mybakingappnanod.ui.RecipeDetailActivity.RecipeDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
