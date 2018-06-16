@@ -11,7 +11,7 @@ import com.example.sirth.mybakingappnanod.R;
 import com.example.sirth.mybakingappnanod.baseClasses.BaseActivity;
 import com.example.sirth.mybakingappnanod.networking.CakePOJO;
 import com.example.sirth.mybakingappnanod.networking.RestApi;
-import com.example.sirth.mybakingappnanod.ui.RecipeDetailActivity.RecipeDetailActivity;
+import com.example.sirth.mybakingappnanod.ui.RecipeDetailActivity.RecipeDetActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ import retrofit2.Response;
  * An activity representing a list of Items. This activity
  * has different presentations for handset and tablet-size devices. On
  * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link RecipeDetailActivity} representing
+ * lead to a {@link RecipeDetActivity} representing
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
@@ -91,8 +91,3 @@ public class MainActivity extends BaseActivity {
 
 
 }
-
-
-
-
-

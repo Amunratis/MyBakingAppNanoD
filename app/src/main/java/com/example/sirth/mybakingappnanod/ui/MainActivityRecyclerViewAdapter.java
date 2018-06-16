@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.sirth.mybakingappnanod.R;
 import com.example.sirth.mybakingappnanod.networking.CakePOJO;
-import com.example.sirth.mybakingappnanod.ui.RecipeDetailActivity.RecipeDetailActivity;
+import com.example.sirth.mybakingappnanod.ui.RecipeDetailActivity.RecipeDetActivity;
 
 import java.util.List;
 
@@ -52,7 +52,7 @@ public class MainActivityRecyclerViewAdapter
                         .replace(R.id.item_detail_container, fragment)
                         .commit();
             } else {/*Phone*/
-                Intent intent = new Intent(mParentActivity, RecipeDetailActivity.class);
+                Intent intent = new Intent(mParentActivity, RecipeDetActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("parcel", cakePojo);
                 mParentActivity.startActivity(intent);

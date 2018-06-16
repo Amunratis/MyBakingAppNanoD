@@ -7,12 +7,12 @@ import android.view.ViewGroup;
 
 import com.example.sirth.mybakingappnanod.R;
 import com.example.sirth.mybakingappnanod.baseClasses.BaseFragment;
-import com.example.sirth.mybakingappnanod.ui.RecipeDetailActivity.RecipeDetailActivity;
+import com.example.sirth.mybakingappnanod.ui.RecipeDetailActivity.RecipeDetActivity;
 
 /**
  * A fragment representing a single Item detail screen.
  * This fragment is either contained in a {@link MainActivity}
- * in two-pane mode (on tablets) or a {@link RecipeDetailActivity}
+ * in two-pane mode (on tablets) or a {@link RecipeDetActivity}
  * on handsets.
  *//*TODO I will use this fragment for the view of */
 public class RecipeDetailFragment extends BaseFragment {
