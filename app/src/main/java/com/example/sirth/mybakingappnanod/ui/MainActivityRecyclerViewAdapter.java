@@ -25,7 +25,6 @@ public class MainActivityRecyclerViewAdapter
 
     /*we override onclick method in onclicklistener*/
     private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
-
         @Override
         public void onClick(View view) {
             // The object casted isn't a View object. Actually it's an object of type
