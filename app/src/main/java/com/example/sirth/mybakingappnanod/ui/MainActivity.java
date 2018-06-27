@@ -2,7 +2,6 @@ package com.example.sirth.mybakingappnanod.ui;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -33,31 +32,13 @@ public class MainActivity extends BaseActivity {
 
     public static final List<CakePOJO> names = new ArrayList<>();
     private static final String TAG = MainActivity.class.getSimpleName();
-    /**
-     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
-     * device.
-     */
-
-    private boolean mTwoPane;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_list);
+        setContentView(R.layout.activity_cake_list);
         ((App) getApplication()).getNetComponent().inject(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle(getTitle());
-
-
-        if (findViewById(R.id.item_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-w900dp).
-            // If this view is present, then the
-            // activity should be in two-pane mode.
-            mTwoPane = true;
-        }
 
         final RecyclerView recyclerView = findViewById(R.id.item_list);
         assert recyclerView != null;
@@ -72,7 +53,7 @@ public class MainActivity extends BaseActivity {
 
                     List<CakePOJO> cakes = response.body();
 
-                    recyclerView.setAdapter(new MainActivityRecyclerViewAdapter(MainActivity.this, cakes, mTwoPane));
+                    recyclerView.setAdapter(new MainActivityRecyclerViewAdapter(MainActivity.this, cakes));
 
                 }
 

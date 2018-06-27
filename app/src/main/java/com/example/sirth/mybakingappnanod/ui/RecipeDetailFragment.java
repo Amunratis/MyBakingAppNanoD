@@ -1,3 +1,4 @@
+/*
 package com.example.sirth.mybakingappnanod.ui;
 
 import android.os.Bundle;
@@ -9,28 +10,38 @@ import com.example.sirth.mybakingappnanod.R;
 import com.example.sirth.mybakingappnanod.baseClasses.BaseFragment;
 import com.example.sirth.mybakingappnanod.ui.RecipeDetailActivity.RecipeDetActivity;
 
+*/
 /**
  * A fragment representing a single Item detail screen.
  * This fragment is either contained in a {@link MainActivity}
  * in two-pane mode (on tablets) or a {@link RecipeDetActivity}
  * on handsets.
- *//*TODO I will use this fragment for the view of */
+ *//*
+*/
+/*TODO I will use this fragment for the view of *//*
+
 public class RecipeDetailFragment extends BaseFragment {
-    /**
+    */
+/**
      * The fragment argument representing the item ID that this fragment
      * represents.
-     */
+     *//*
+
     public static final String ARG_ITEM_ID = "item_id";
 
-    /**
+    */
+/**
      * The dummy content this fragment is presenting.
-     */
+     *//*
 
 
-    /**
+
+    */
+/**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
-     */
+     *//*
+
     public RecipeDetailFragment() {
     }
 
@@ -56,3 +67,4 @@ public class RecipeDetailFragment extends BaseFragment {
         return rootView;
     }
 }
+*/

@@ -34,12 +34,7 @@ public class StepsShDescAdapter extends RecyclerView.Adapter<StepsShDescAdapter.
         holder.shortDescription.setText(cakePOJO.getSteps().get(position).getShortDescription());
         holder.shortDescription.setText(cakePOJO.getSteps().get(position).getShortDescription());
 
-        holder.itemView.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override public void onClick(View v) {
-                        itemListener.onItemClick(cakePOJO.getSteps().get(position).getShortDescription());
-                    }
-                });
+
 
     }
 
