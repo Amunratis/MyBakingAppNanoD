@@ -26,30 +26,8 @@ public class MainActivityRecyclerViewAdapter
     private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            // The object casted isn't a View object. Actually it's an object of type
-            // DummyContent.DummyItem
-            // set as a tag on the view
-            // You can also set arbitrary objects as tags besides usual Int's
             CakePOJO cakePojo = (CakePOJO) view.getTag();
-            /*Now, what's happening here? We're checking whether mTwoPane boolean value is true
-             * If it is then that means we're holding a tablet and when it's false it means we're  using a  phone*/
 
-            /*Tablet*/
-            /*if (mTwoPane) {
-                *//*Tablet, show detail and list activity side by side. Create a bundle to store
-                 * arguments that we will later on handle over to our detailFragment *//*
-                Bundle arguments = new Bundle();
-                *//*If CakeDetailFragment.ARG_ITEM_ID is static final I wonder why not to use
-                 * string literal instead? *//*
-                arguments.putParcelable(RecipeDetailFragment.ARG_ITEM_ID, cakePojo);
-
-                RecipeDetailFragment fragment = new RecipeDetailFragment();
-                fragment.setArguments(arguments);
-                mParentActivity.getSupportFragmentManager().beginTransaction()
-                        //TODO Which layout file should I use here ?
-                        .replace(R.id.item_detail_container, fragment)
-                        .commit();
-            }*/
                 Intent intent = new Intent(mParentActivity, RecipeDetActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("parcel", cakePojo);
@@ -88,6 +66,7 @@ public class MainActivityRecyclerViewAdapter
 
         // on it is read within onClick method of onClickListener attached to the viewHolder object
         holder.itemView.setOnClickListener(mOnClickListener);
+
 
 
     }

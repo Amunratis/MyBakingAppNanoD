@@ -9,16 +9,18 @@ import android.widget.TextView;
 import com.example.sirth.mybakingappnanod.R;
 import com.example.sirth.mybakingappnanod.networking.CakePOJO;
 
-public class RecipeIngredientsDetActivityAdapter extends RecyclerView.Adapter<RecipeIngredientsDetActivityAdapter.ViewHolder> {
+public class RecipeDetActivityAdapterIngredients extends RecyclerView.Adapter<RecipeDetActivityAdapterIngredients.ViewHolder> {
 
 
     RecipeDetActivity recipeDetActivity;
     CakePOJO cakePOJO;
 
-    public RecipeIngredientsDetActivityAdapter(RecipeDetActivity recipeDetActivity, CakePOJO cakePOJO) {
+
+    public RecipeDetActivityAdapterIngredients(RecipeDetActivity recipeDetActivity, CakePOJO cakePOJO, Boolean mTwoPane) {
         this.recipeDetActivity = recipeDetActivity;
         this.cakePOJO = cakePOJO;
     }
+
 
 
     @Override
@@ -31,10 +33,15 @@ public class RecipeIngredientsDetActivityAdapter extends RecyclerView.Adapter<Re
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
+        //TODO now I need to set a tag at a different object than in mainActivity
+
+
         holder.ingredient.setText(cakePOJO.getIngredients().
                 get(position).getIngredient());
         holder.measurement.setText(cakePOJO.getIngredients().get(position).getMeasure());
         holder.quantity.setText((Double.toString(cakePOJO.getIngredients().get(position).getQuantity())));
+
+
 
 
     }
@@ -49,8 +56,11 @@ public class RecipeIngredientsDetActivityAdapter extends RecyclerView.Adapter<Re
         TextView measurement;
         TextView quantity;
 
+
+
         public ViewHolder(View itemView) {
             super(itemView);
+
             ingredient =itemView.findViewById(R.id.ingredients);
             measurement=itemView.findViewById(R.id.measurement);
             quantity=itemView.findViewById(R.id.quantity);
