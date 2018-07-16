@@ -1,6 +1,9 @@
 package com.example.sirth.mybakingappnanod.ui;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
@@ -36,6 +39,7 @@ public class MainActivity extends BaseActivity {
         assert recyclerView != null;
 
 
+
         try {
             Call<List<CakePOJO>> cakes = retrofit.create(RestApi.class).getCakes();
 
@@ -43,7 +47,16 @@ public class MainActivity extends BaseActivity {
                 @Override
                 public void onResponse(Call<List<CakePOJO>> call, Response<List<CakePOJO>> response) {
 
+
                     List<CakePOJO> cakes = response.body();
+
+                    String string=response.body().toString();
+
+                    Toast.makeText(MainActivity.this, string, Toast.LENGTH_SHORT).show();
+
+
+
+
 
                     recyclerView.setAdapter(new MainActivityRecyclerViewAdapter(MainActivity.this, cakes));
 
@@ -60,6 +73,23 @@ public class MainActivity extends BaseActivity {
             Log.d("Error", e.getMessage());
             Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+
+    public static void setUserObject(Context c, String userObject, String key) {
+        SharedPreferences pref = PreferenceManager
+                .getDefaultSharedPreferences(c);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(key, userObject);
+        editor.commit();
+    }
+
+    public static String getUserObject(Context ctx,String key) {
+        SharedPreferences pref = PreferenceManager
+                .getDefaultSharedPreferences(ctx);
+        String userObject = pref.getString(key, null);
+        return userObject;
     }
 
 
