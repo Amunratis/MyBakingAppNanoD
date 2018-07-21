@@ -80,7 +80,7 @@ public class MainActivity extends BaseActivity {
 
 
 
-   /*     888888888888888888888888888888888888888888888888888888888888888888888888*/
+   /*TODO    trying to get Json into string using the code below*/
         Call<String> stringCall = retrofit.create(RestApi.class).getStringResponse("https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json");
         stringCall.enqueue(new Callback<String>() {
             @Override
