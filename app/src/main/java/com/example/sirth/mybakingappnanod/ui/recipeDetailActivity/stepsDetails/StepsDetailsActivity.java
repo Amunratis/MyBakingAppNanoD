@@ -1,20 +1,16 @@
-package com.example.sirth.mybakingappnanod.ui.RecipeDetailActivity.StepsDetails;
+package com.example.sirth.mybakingappnanod.ui.recipeDetailActivity.stepsDetails;
 
-import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
-import android.view.LayoutInflater;
+import android.support.v7.app.ActionBar;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.sirth.mybakingappnanod.R;
-import com.example.sirth.mybakingappnanod.baseClasses.BaseFragment;
-import com.example.sirth.mybakingappnanod.networking.CakePOJO;
+import com.example.sirth.mybakingappnanod.baseClasses.BaseActivity;
 import com.example.sirth.mybakingappnanod.networking.Step;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
@@ -37,21 +33,8 @@ import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
-import java.util.Objects;
-
-/**
- * Used in tablet mode
- */
-public class FragmentStepsDetailsTwoPane extends BaseFragment implements View.OnClickListener, Player.EventListener {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String steps = "param1";
-    Step step;
-
-
-    // TODO: Rename and change types of parameters
-    private TextView desc;
+/*This activity is displayed as a separate activity at phones*/
+public class StepsDetailsActivity extends BaseActivity implements View.OnClickListener, Player.EventListener {
 
     SimpleExoPlayerView mPlayerView;
     SimpleExoPlayer mExoPlayer;
@@ -59,36 +42,45 @@ public class FragmentStepsDetailsTwoPane extends BaseFragment implements View.On
     private static final String TAG = StepsDetailsActivity.class.getSimpleName();
     private PlaybackStateCompat.Builder mStateBuilder;
 
-
-    private OnFragmentInteractionListener mListener;
-
-    public FragmentStepsDetailsTwoPane() {
-        // Required empty public constructor
-    }
-
-
-    // TODO: Rename and change types and number of parameters
-    public static FragmentStepsDetailsTwoPane newInstance(CakePOJO cakePOJO) {
-
-        FragmentStepsDetailsTwoPane fragment = new FragmentStepsDetailsTwoPane();
-        Bundle args = new Bundle();
-        args.putParcelable(steps, cakePOJO);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    Step step;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
+        setContentView(R.layout.steps_details_activity);
+        mPlayerView = findViewById(R.id.thumbnail);
         //if there is no network connection load the generic question mark from drawables
+        mPlayerView.setDefaultArtwork(BitmapFactory.decodeResource
+                (getResources(), R.drawable.question_mark));
+
+        //initialize the media session
+        initializeMediaSession();
+
+        step = getIntent().getParcelableExtra("parcel");
+
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(step.getShortDescription());
+        }
+
+        TextView description = findViewById(R.id.description);
+
+        description.setText(step.getDescription());
+        if (step.getVideoURL().equals("")) {
+            mPlayerView.setVisibility(View.GONE);
+        } else {
+
+            initializePlayer(Uri.parse(step.getVideoURL()));
+        }
 
 
     }
 
+
     void initializeMediaSession() {
-        mMediaSession = new MediaSessionCompat(Objects.requireNonNull(getActivity()), TAG);
+        mMediaSession = new MediaSessionCompat(this, TAG);
 
         mMediaSession.setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS | MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS);
         mMediaSession.setMediaButtonReceiver(null);
@@ -107,7 +99,7 @@ public class FragmentStepsDetailsTwoPane extends BaseFragment implements View.On
 
 
         // MySessionCallback has methods that handle callbacks from a media controller.
-        mMediaSession.setCallback(new FragmentStepsDetailsTwoPane.MySessionCallback());
+        mMediaSession.setCallback(new MySessionCallback());
 
         // Start the Media Session since the activity is active.
         mMediaSession.setActive(true);
@@ -137,8 +129,7 @@ public class FragmentStepsDetailsTwoPane extends BaseFragment implements View.On
             // Create an instance of the ExoPlayer.
             TrackSelector trackSelector = new DefaultTrackSelector();
             LoadControl loadControl = new DefaultLoadControl();
-            RenderersFactory renderersFactory = new DefaultRenderersFactory
-                    (Objects.requireNonNull(getActivity()));
+            RenderersFactory renderersFactory = new DefaultRenderersFactory(this);
             mExoPlayer = ExoPlayerFactory.newSimpleInstance(renderersFactory, trackSelector, loadControl);
             mPlayerView.setPlayer(mExoPlayer);
 
@@ -146,9 +137,9 @@ public class FragmentStepsDetailsTwoPane extends BaseFragment implements View.On
             mExoPlayer.addListener(this);
 
             // Prepare the MediaSource.
-            String userAgent = Util.getUserAgent(Objects.requireNonNull(getActivity()), "ClassicalMusicQuiz");
+            String userAgent = Util.getUserAgent(this, "ClassicalMusicQuiz");
             MediaSource mediaSource = new ExtractorMediaSource(mediaUri, new DefaultDataSourceFactory(
-                    Objects.requireNonNull(getActivity()), userAgent), new DefaultExtractorsFactory(), null, null);
+                    this, userAgent), new DefaultExtractorsFactory(), null, null);
             mExoPlayer.prepare(mediaSource);
             mExoPlayer.setPlayWhenReady(true);
         }
@@ -162,79 +153,6 @@ public class FragmentStepsDetailsTwoPane extends BaseFragment implements View.On
 
 
     //Player methods thad had to be overrriden
-
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mExoPlayer != null) {
-            releasePlayer();
-        }
-        mMediaSession.setActive(false);
-
-
-    }
-
-    private void releasePlayer() {
-        mExoPlayer.stop();
-        mExoPlayer.release();
-        mExoPlayer = null;
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_steps_details, container, false);
-
-
-        mPlayerView = view.findViewById(R.id.thumbnail);
-        mPlayerView.setDefaultArtwork(BitmapFactory.decodeResource
-                (getResources(), R.drawable.question_mark));
-
-        //initialize the media session
-        initializeMediaSession();
-        desc = view.findViewById(R.id.description);
-
-
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            step = bundle.getParcelable("argumentsRecipe");
-            desc.setText(step.getDescription());
-        } else {
-            Toast.makeText(getContext(), "NULL", Toast.LENGTH_LONG).show();
-        }
-
-
-        if (step.getVideoURL().equals("")) {
-            mPlayerView.setVisibility(View.GONE);
-        } else {
-
-            initializePlayer(Uri.parse(step.getVideoURL()));
-        }
-
-        return view;
-    }
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-
     @Override
     public void onTimelineChanged(Timeline timeline, Object manifest) {
 
@@ -252,6 +170,14 @@ public class FragmentStepsDetailsTwoPane extends BaseFragment implements View.On
 
     @Override
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+        if ((playbackState == Player.STATE_ENDED) && playWhenReady) {
+            mStateBuilder.setState(PlaybackStateCompat.STATE_PLAYING,
+                    mExoPlayer.getCurrentPosition(), 1f);
+        } else if ((playbackState == Player.STATE_ENDED)) {
+            mStateBuilder.setState(PlaybackStateCompat.STATE_PAUSED,
+                    mExoPlayer.getCurrentPosition(), 1f);
+        }
+        mMediaSession.setPlaybackState(mStateBuilder.build());
 
     }
 
@@ -275,8 +201,20 @@ public class FragmentStepsDetailsTwoPane extends BaseFragment implements View.On
 
     }
 
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mExoPlayer != null) {
+            releasePlayer();
+        }
+        mMediaSession.setActive(false);
+
+
+    }
+
+    private void releasePlayer() {
+        mExoPlayer.stop();
+        mExoPlayer.release();
+        mExoPlayer = null;
     }
 }

@@ -8,13 +8,12 @@ import com.google.gson.GsonBuilder;
 
 import javax.inject.Singleton;
 
+import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import dagger.Module;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 @Module
 public class NetModule {
@@ -54,7 +53,6 @@ public class NetModule {
     Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .addConverterFactory(ScalarsConverterFactory.create())
                 .baseUrl(mBaseUrl)
                 .client(okHttpClient)
                 .build();

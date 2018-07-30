@@ -1,4 +1,4 @@
-package com.example.sirth.mybakingappnanod.ui.RecipeDetailActivity;
+package com.example.sirth.mybakingappnanod.ui.recipeDetailActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +12,8 @@ import android.widget.TextView;
 import com.example.sirth.mybakingappnanod.R;
 import com.example.sirth.mybakingappnanod.networking.CakePOJO;
 import com.example.sirth.mybakingappnanod.networking.Step;
-import com.example.sirth.mybakingappnanod.ui.RecipeDetailActivity.StepsDetails.FragmentStepsDetailsTwoPane;
-import com.example.sirth.mybakingappnanod.ui.RecipeDetailActivity.StepsDetails.StepsDetailsActivity;
+import com.example.sirth.mybakingappnanod.ui.recipeDetailActivity.stepsDetails.FragmentStepsDetailsTwoPane;
+import com.example.sirth.mybakingappnanod.ui.recipeDetailActivity.stepsDetails.StepsDetailsActivity;
 
 public class RecipeDetActivityAdapterSteps extends RecyclerView.Adapter<RecipeDetActivityAdapterSteps.ViewHolder> {
 

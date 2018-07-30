@@ -1,4 +1,4 @@
-package com.example.sirth.mybakingappnanod.ui.RecipeDetailActivity;
+package com.example.sirth.mybakingappnanod.ui.recipeDetailActivity;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

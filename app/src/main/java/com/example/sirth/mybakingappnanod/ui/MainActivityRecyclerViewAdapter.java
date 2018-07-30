@@ -1,7 +1,6 @@
 package com.example.sirth.mybakingappnanod.ui;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +9,7 @@ import android.widget.TextView;
 
 import com.example.sirth.mybakingappnanod.R;
 import com.example.sirth.mybakingappnanod.networking.CakePOJO;
-import com.example.sirth.mybakingappnanod.ui.RecipeDetailActivity.RecipeDetActivity;
+import com.example.sirth.mybakingappnanod.ui.recipeDetailActivity.RecipeDetActivity;
 
 import java.util.List;
 

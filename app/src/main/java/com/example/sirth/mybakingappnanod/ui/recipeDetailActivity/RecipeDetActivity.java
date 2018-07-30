@@ -1,4 +1,4 @@
-package com.example.sirth.mybakingappnanod.ui.RecipeDetailActivity;
+package com.example.sirth.mybakingappnanod.ui.recipeDetailActivity;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -6,16 +6,20 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.example.sirth.mybakingappnanod.R;
 import com.example.sirth.mybakingappnanod.baseClasses.BaseActivity;
 import com.example.sirth.mybakingappnanod.networking.CakePOJO;
 import com.example.sirth.mybakingappnanod.networking.Ingredient;
 import com.example.sirth.mybakingappnanod.networking.Step;
-import com.example.sirth.mybakingappnanod.ui.RecipeDetailActivity.StepsDetails.FragmentStepsDetailsTwoPane;
+import com.example.sirth.mybakingappnanod.ui.recipeDetailActivity.stepsDetails.FragmentStepsDetailsTwoPane;
+import com.example.sirth.mybakingappnanod.ui.widget.UpdateService;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.security.AccessController.getContext;
 
 /*TODO 1
  * Load data from step in textviews and exoplayer in StepsDetailsActivity
@@ -41,12 +45,6 @@ public class RecipeDetActivity extends BaseActivity implements FragmentStepsDeta
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail);
 
-        // Show the Up button in the action bar.
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
 
 
         if (findViewById(R.id.fragment) != null) {
@@ -58,13 +56,13 @@ public class RecipeDetActivity extends BaseActivity implements FragmentStepsDeta
         }
 
         //Setup Ingredients and Recipe Recyclers
-        setupLists();
+        setupListsAndWidget();
 
 
     }
 
 
-    void setupLists() {
+    void setupListsAndWidget() {
 
         cakePOJO = getIntent().getParcelableExtra("parcel");
 
@@ -79,6 +77,29 @@ public class RecipeDetActivity extends BaseActivity implements FragmentStepsDeta
         ingredientsRecyclerView.setItemAnimator(new DefaultItemAnimator());
         ingredientsRecyclerView.setAdapter(new RecipeDetActivityAdapterIngredients(RecipeDetActivity.this,
                 cakePOJO, mTwoPane));
+
+        //Widget handling part
+
+        List<Ingredient> ingredients=cakePOJO.getIngredients();
+
+        ArrayList<String> ingredientsForWidgets= new ArrayList<>();
+
+        for (Ingredient a : ingredients) {
+            ingredientsForWidgets.add(a.getIngredient() + "\n" +
+                    "Quantity: " + a.getQuantity().toString() + "\n" +
+                    "Measure: " + a.getMeasure() + "\n");
+        }
+
+        //checking if ingredientsForWidgets is empty
+
+             /*Context context = this;
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_grid_view);
+        ComponentName thisWidget = new ComponentName(context, BakingWidgetProvider.class);
+        remoteViews.setTextViewText(R.id.widget_grid_view_item, "myText" + System.currentTimeMillis());
+        appWidgetManager.updateAppWidget(thisWidget, remoteViews);*/
+
+        UpdateService.startBakingService(getBaseContext(), ingredientsForWidgets);
 
     }
 
