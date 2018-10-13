@@ -10,11 +10,11 @@ import com.example.sirth.mybakingappnanod.dagger.module.NetModule;
 public class App extends Application {
     private NetComponent mNetComponent;
 
-
+    private static App mInstance;
     @Override
     public void onCreate() {
         super.onCreate();
-
+        mInstance=this;
 
 
         mNetComponent = DaggerNetComponent.builder()
@@ -22,6 +22,9 @@ public class App extends Application {
                 .netModule(new NetModule("https://d17h27t6h515a5.cloudfront.net/topher/2017/May/"))
                 .build();
     }
+
+    public static synchronized App getmInstance () {return mInstance;}
+
     public NetComponent getNetComponent() {
         return mNetComponent;
     }

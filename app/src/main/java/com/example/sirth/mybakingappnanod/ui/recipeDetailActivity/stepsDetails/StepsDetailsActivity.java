@@ -11,7 +11,8 @@ import android.widget.TextView;
 
 import com.example.sirth.mybakingappnanod.R;
 import com.example.sirth.mybakingappnanod.baseClasses.BaseActivity;
-import com.example.sirth.mybakingappnanod.networking.Step;
+import com.example.sirth.mybakingappnanod.data.Step;
+import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlaybackException;
@@ -29,6 +30,7 @@ import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
+import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
@@ -50,6 +52,10 @@ public class StepsDetailsActivity extends BaseActivity implements View.OnClickLi
         setContentView(R.layout.steps_details_activity);
         mPlayerView = findViewById(R.id.thumbnail);
         //if there is no network connection load the generic question mark from drawables
+
+        mPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIT);
+
+
         mPlayerView.setDefaultArtwork(BitmapFactory.decodeResource
                 (getResources(), R.drawable.question_mark));
 
@@ -110,6 +116,9 @@ public class StepsDetailsActivity extends BaseActivity implements View.OnClickLi
 
         @Override
         public void onPlay() {
+
+            mExoPlayer.setVideoScalingMode(C.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
+            mPlayerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIT);
             mExoPlayer.setPlayWhenReady(true);
         }
 

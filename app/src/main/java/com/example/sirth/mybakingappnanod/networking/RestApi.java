@@ -1,5 +1,7 @@
 package com.example.sirth.mybakingappnanod.networking;
 
+import com.example.sirth.mybakingappnanod.data.CakePOJO;
+
 import java.util.List;
 
 import retrofit2.Call;

@@ -6,45 +6,43 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.example.sirth.mybakingappnanod.R;
 import com.example.sirth.mybakingappnanod.baseClasses.BaseActivity;
-import com.example.sirth.mybakingappnanod.networking.CakePOJO;
-import com.example.sirth.mybakingappnanod.networking.Ingredient;
-import com.example.sirth.mybakingappnanod.networking.Step;
+import com.example.sirth.mybakingappnanod.data.CakePOJO;
+import com.example.sirth.mybakingappnanod.data.Ingredient;
+import com.example.sirth.mybakingappnanod.data.Step;
 import com.example.sirth.mybakingappnanod.ui.recipeDetailActivity.stepsDetails.FragmentStepsDetailsTwoPane;
-import com.example.sirth.mybakingappnanod.ui.widget.UpdateService;
+import com.example.sirth.mybakingappnanod.utilsAndConstants.SharedPreferencesUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.security.AccessController.getContext;
 
-/*TODO 1
- * Load data from step in textviews and exoplayer in StepsDetailsActivity
- *through RecipeDetActivityAdapterIngredients
- * */
 public class RecipeDetActivity extends BaseActivity implements FragmentStepsDetailsTwoPane.OnFragmentInteractionListener {
 
 
+    public static final int GET_RECIPE_FROM_SHARED_PREFS = 1234;
+    public static final String KEY_GET_RECIPE_FROM_SHARED_PREFS = "get_recipe_from_shared_prefs";
     CakePOJO cakePOJO;
+    RecyclerView ingredientsRecyclerView;
+    RecyclerView stepsRecyclerView;
     private Integer id;
     private String name;
     private List<Ingredient> ingredients = new ArrayList<Ingredient>();
     private List<Step> steps = new ArrayList<Step>();
     private Integer servings;
     private String image;
-    RecyclerView ingredientsRecyclerView;
-    RecyclerView stepsRecyclerView;
     private boolean mTwoPane;
+    private boolean widgetPined;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail);
-
 
 
         if (findViewById(R.id.fragment) != null) {
@@ -55,54 +53,79 @@ public class RecipeDetActivity extends BaseActivity implements FragmentStepsDeta
             mTwoPane = true;
         }
 
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+
+        }
+
         //Setup Ingredients and Recipe Recyclers
         setupListsAndWidget();
-
 
     }
 
 
     void setupListsAndWidget() {
 
-        cakePOJO = getIntent().getParcelableExtra("parcel");
+        if (getIntent().hasExtra(KEY_GET_RECIPE_FROM_SHARED_PREFS)){
+            cakePOJO = SharedPreferencesUtil.getCakePOJOFromPreferences(this);
+            getSupportActionBar().setTitle(cakePOJO.getName());
+        } else {
+            cakePOJO = getIntent().getParcelableExtra("parcel");
+            getSupportActionBar().setTitle(cakePOJO.getName());
+        }
 
+
+        //setup steps Recycler
         stepsRecyclerView = findViewById(R.id.activity_steps_detail_recycler);
         stepsRecyclerView.setLayoutManager(new LinearLayoutManager(this, 1, false));
         stepsRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        stepsRecyclerView.setAdapter(new RecipeDetActivityAdapterSteps(RecipeDetActivity.this, cakePOJO, mTwoPane));
+        stepsRecyclerView.setAdapter(new StepsDetActivityAdapter(RecipeDetActivity.this, cakePOJO, mTwoPane));
 
 
+        //setup ingredients recycler
         ingredientsRecyclerView = findViewById(R.id.activity_ingredients_detail_recycler);
         ingredientsRecyclerView.setLayoutManager(new LinearLayoutManager(this, 1, true));
         ingredientsRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        ingredientsRecyclerView.setAdapter(new RecipeDetActivityAdapterIngredients(RecipeDetActivity.this,
+        ingredientsRecyclerView.setAdapter(new IngredientsDetActivityAdapter(RecipeDetActivity.this,
                 cakePOJO, mTwoPane));
 
         //Widget handling part
 
-        List<Ingredient> ingredients=cakePOJO.getIngredients();
-
-        ArrayList<String> ingredientsForWidgets= new ArrayList<>();
-
-        for (Ingredient a : ingredients) {
-            ingredientsForWidgets.add(a.getIngredient() + "\n" +
-                    "Quantity: " + a.getQuantity().toString() + "\n" +
-                    "Measure: " + a.getMeasure() + "\n");
-        }
-
-        //checking if ingredientsForWidgets is empty
-
-             /*Context context = this;
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_grid_view);
-        ComponentName thisWidget = new ComponentName(context, BakingWidgetProvider.class);
-        remoteViews.setTextViewText(R.id.widget_grid_view_item, "myText" + System.currentTimeMillis());
-        appWidgetManager.updateAppWidget(thisWidget, remoteViews);*/
-
-        UpdateService.startBakingService(getBaseContext(), ingredientsForWidgets);
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+              switch (id) {
+            case R.id.action_pin_to_widget:
+                if (!widgetPined) {
+                    SharedPreferencesUtil.pinToWidget(this, getApplication(), item, cakePOJO);
+                } else {
+                    SharedPreferencesUtil.removeFromWidget(this, getApplication(), item);
+
+                }
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+
+        String savedName = SharedPreferencesUtil.getCakePOJONameFromPreferences(this);
+        widgetPined = savedName.contentEquals(cakePOJO.getName());
+        if (widgetPined) {
+            MenuItem menuItem = menu.getItem(0);
+            menuItem.setIcon(R.drawable.ic_action_pined_24dp);
+        }
+
+        return super.onCreateOptionsMenu(menu);
+    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {

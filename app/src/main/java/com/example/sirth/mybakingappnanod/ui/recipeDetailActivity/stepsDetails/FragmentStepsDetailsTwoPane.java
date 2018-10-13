@@ -14,8 +14,8 @@ import android.widget.Toast;
 
 import com.example.sirth.mybakingappnanod.R;
 import com.example.sirth.mybakingappnanod.baseClasses.BaseFragment;
-import com.example.sirth.mybakingappnanod.networking.CakePOJO;
-import com.example.sirth.mybakingappnanod.networking.Step;
+import com.example.sirth.mybakingappnanod.data.CakePOJO;
+import com.example.sirth.mybakingappnanod.data.Step;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlaybackException;

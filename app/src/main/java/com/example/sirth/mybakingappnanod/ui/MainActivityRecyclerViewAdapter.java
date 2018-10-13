@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.sirth.mybakingappnanod.R;
-import com.example.sirth.mybakingappnanod.networking.CakePOJO;
+import com.example.sirth.mybakingappnanod.data.CakePOJO;
 import com.example.sirth.mybakingappnanod.ui.recipeDetailActivity.RecipeDetActivity;
 
 import java.util.List;
@@ -27,16 +27,17 @@ public class MainActivityRecyclerViewAdapter
         public void onClick(View view) {
             CakePOJO cakePojo = (CakePOJO) view.getTag();
 
-                Intent intent = new Intent(mParentActivity, RecipeDetActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("parcel", cakePojo);
-                mParentActivity.startActivity(intent);
-            }
+            Intent intent = new Intent(mParentActivity, RecipeDetActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("parcel", cakePojo);
+            mParentActivity.startActivity(intent);
+        }
 
     };
 
+
     MainActivityRecyclerViewAdapter(MainActivity parent,
-                                    List<CakePOJO> items                                  ) {
+                                    List<CakePOJO> items) {
         cakePOJOS = items;
         mParentActivity = parent;
     }
@@ -47,7 +48,7 @@ public class MainActivityRecyclerViewAdapter
                 //TODO Which layout file should I use here ?
                 .inflate(R.layout.item_list_content, parent, false);
 
-              return new ViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
@@ -67,7 +68,6 @@ public class MainActivityRecyclerViewAdapter
         holder.itemView.setOnClickListener(mOnClickListener);
 
 
-
     }
 
     @Override
@@ -80,7 +80,7 @@ public class MainActivityRecyclerViewAdapter
 
         ViewHolder(View view) {
             super(view);
-            name=view.findViewById(R.id.nameText);
+            name = view.findViewById(R.id.nameText);
         }
     }
 }

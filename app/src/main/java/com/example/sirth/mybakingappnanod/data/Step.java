@@ -1,4 +1,4 @@
-package com.example.sirth.mybakingappnanod.networking;
+package com.example.sirth.mybakingappnanod.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -9,6 +9,7 @@ import com.google.gson.annotations.SerializedName;
 public class Step implements Parcelable
 
 {
+
     @SerializedName("id")
     @Expose
     private Integer id;

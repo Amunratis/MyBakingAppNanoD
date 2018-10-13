@@ -1,9 +1,6 @@
 package com.example.sirth.mybakingappnanod.ui;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
@@ -11,7 +8,7 @@ import android.widget.Toast;
 import com.example.sirth.mybakingappnanod.App;
 import com.example.sirth.mybakingappnanod.R;
 import com.example.sirth.mybakingappnanod.baseClasses.BaseActivity;
-import com.example.sirth.mybakingappnanod.networking.CakePOJO;
+import com.example.sirth.mybakingappnanod.data.CakePOJO;
 import com.example.sirth.mybakingappnanod.networking.RestApi;
 
 import java.util.ArrayList;
@@ -22,7 +19,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity{
+
 
     public static final List<CakePOJO> names = new ArrayList<>();
     private static final String TAG = MainActivity.class.getSimpleName();

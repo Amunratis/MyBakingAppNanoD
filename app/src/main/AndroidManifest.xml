@@ -29,7 +29,7 @@
             android:name=".ui.recipeDetailActivity.RecipeDetActivity"
             android:label="@string/title_item_detail"
             android:parentActivityName=".ui.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.sirth.mybakingappnanod.ui.MainActivity" />
@@ -38,7 +38,7 @@
         <activity android:name=".baseClasses.BaseActivity" />
         <activity android:name=".ui.recipeDetailActivity.stepsDetails.StepsDetailsActivity" />
 
-        <receiver android:name=".ui.widget.BakingWidgetProvider">
+        <receiver android:name=".ui.widget.MyAppWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE2" />
@@ -49,10 +49,9 @@
                 android:resource="@xml/baking_widget_info" />
         </receiver>
 
-        <service android:name=".ui.widget.UpdateService" />
 
         <service
-            android:name=".ui.widget.GridWidgetService"
+            android:name=".ui.widget.MyWidgetRemoteViewsService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
     </application>

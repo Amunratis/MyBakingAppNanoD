@@ -10,12 +10,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.sirth.mybakingappnanod.R;
-import com.example.sirth.mybakingappnanod.networking.CakePOJO;
-import com.example.sirth.mybakingappnanod.networking.Step;
+import com.example.sirth.mybakingappnanod.data.CakePOJO;
+import com.example.sirth.mybakingappnanod.data.Step;
 import com.example.sirth.mybakingappnanod.ui.recipeDetailActivity.stepsDetails.FragmentStepsDetailsTwoPane;
 import com.example.sirth.mybakingappnanod.ui.recipeDetailActivity.stepsDetails.StepsDetailsActivity;
 
-public class RecipeDetActivityAdapterSteps extends RecyclerView.Adapter<RecipeDetActivityAdapterSteps.ViewHolder> {
+public class StepsDetActivityAdapter extends RecyclerView.Adapter<StepsDetActivityAdapter.ViewHolder> {
 
     RecipeDetActivity recipeDetActivity;
     CakePOJO cakePOJO;
@@ -44,7 +44,7 @@ public class RecipeDetActivityAdapterSteps extends RecyclerView.Adapter<RecipeDe
     };
 
 
-    public RecipeDetActivityAdapterSteps(RecipeDetActivity recipeDetActivity, CakePOJO cakePOJO, Boolean mTwoPane) {
+    public StepsDetActivityAdapter(RecipeDetActivity recipeDetActivity, CakePOJO cakePOJO, Boolean mTwoPane) {
         this.recipeDetActivity = recipeDetActivity;
         this.cakePOJO = cakePOJO;
         this.mTwoPane = mTwoPane;

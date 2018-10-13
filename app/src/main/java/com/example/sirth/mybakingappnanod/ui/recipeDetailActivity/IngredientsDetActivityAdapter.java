@@ -7,25 +7,24 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.sirth.mybakingappnanod.R;
-import com.example.sirth.mybakingappnanod.networking.CakePOJO;
+import com.example.sirth.mybakingappnanod.data.CakePOJO;
 
-public class RecipeDetActivityAdapterIngredients extends RecyclerView.Adapter<RecipeDetActivityAdapterIngredients.ViewHolder> {
+public class IngredientsDetActivityAdapter extends RecyclerView.Adapter<IngredientsDetActivityAdapter.ViewHolder> {
 
 
     RecipeDetActivity recipeDetActivity;
     CakePOJO cakePOJO;
 
 
-    public RecipeDetActivityAdapterIngredients(RecipeDetActivity recipeDetActivity, CakePOJO cakePOJO, Boolean mTwoPane) {
+    public IngredientsDetActivityAdapter(RecipeDetActivity recipeDetActivity, CakePOJO cakePOJO, Boolean mTwoPane) {
         this.recipeDetActivity = recipeDetActivity;
         this.cakePOJO = cakePOJO;
     }
 
 
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.ingredients_content,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ingredients_content, parent, false);
         return new ViewHolder(view);
 
     }
@@ -42,8 +41,6 @@ public class RecipeDetActivityAdapterIngredients extends RecyclerView.Adapter<Re
         holder.quantity.setText((Double.toString(cakePOJO.getIngredients().get(position).getQuantity())));
 
 
-
-
     }
 
     @Override
@@ -51,19 +48,18 @@ public class RecipeDetActivityAdapterIngredients extends RecyclerView.Adapter<Re
         return cakePOJO.getIngredients().size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
         TextView ingredient;
         TextView measurement;
         TextView quantity;
 
 
-
         public ViewHolder(View itemView) {
             super(itemView);
 
-            ingredient =itemView.findViewById(R.id.ingredients);
-            measurement=itemView.findViewById(R.id.measurement);
-            quantity=itemView.findViewById(R.id.quantity);
+            ingredient = itemView.findViewById(R.id.ingredients);
+            measurement = itemView.findViewById(R.id.measurement);
+            quantity = itemView.findViewById(R.id.quantity);
         }
     }
 }

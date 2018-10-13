@@ -1,4 +1,4 @@
-package com.example.sirth.mybakingappnanod.networking;
+package com.example.sirth.mybakingappnanod.data;
 
 import java.util.ArrayList;
 import java.util.List;
