@@ -42,10 +42,10 @@ public class RecipeDetActivity extends BaseActivity implements FragmentStepsDeta
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_detail);
+        setContentView(R.layout.activity_cake_detail);
 
 
-        if (findViewById(R.id.fragment) != null) {
+        if (findViewById(R.id.activity_steps_details) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w900dp).
             // If this view is present, then the
@@ -68,7 +68,7 @@ public class RecipeDetActivity extends BaseActivity implements FragmentStepsDeta
 
     void setupListsAndWidget() {
 
-        if (getIntent().hasExtra(KEY_GET_RECIPE_FROM_SHARED_PREFS)){
+        if (getIntent().hasExtra(KEY_GET_RECIPE_FROM_SHARED_PREFS)) {
             cakePOJO = SharedPreferencesUtil.getCakePOJOFromPreferences(this);
             getSupportActionBar().setTitle(cakePOJO.getName());
         } else {
@@ -100,7 +100,7 @@ public class RecipeDetActivity extends BaseActivity implements FragmentStepsDeta
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-              switch (id) {
+        switch (id) {
             case R.id.action_pin_to_widget:
                 if (!widgetPined) {
                     SharedPreferencesUtil.pinToWidget(this, getApplication(), item, cakePOJO);

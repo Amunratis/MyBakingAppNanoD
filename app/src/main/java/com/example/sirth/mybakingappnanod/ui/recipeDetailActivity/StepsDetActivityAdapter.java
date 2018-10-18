@@ -31,7 +31,7 @@ public class StepsDetActivityAdapter extends RecyclerView.Adapter<StepsDetActivi
                 FragmentStepsDetailsTwoPane fragment = new FragmentStepsDetailsTwoPane();
                 fragment.setArguments(arguments);
                 recipeDetActivity.getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment, fragment)
+                        .replace(R.id.activity_steps_details, fragment)
                         .commit();
             } else {
                 Intent intent = new Intent(recipeDetActivity, StepsDetailsActivity.class);
