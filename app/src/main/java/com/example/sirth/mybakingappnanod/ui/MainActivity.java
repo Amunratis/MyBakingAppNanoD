@@ -11,7 +11,6 @@ import com.example.sirth.mybakingappnanod.baseClasses.BaseActivity;
 import com.example.sirth.mybakingappnanod.data.CakePOJO;
 import com.example.sirth.mybakingappnanod.networking.RestApi;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -19,11 +18,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class MainActivity extends BaseActivity{
-
-
-    public static final List<CakePOJO> names = new ArrayList<>();
-    private static final String TAG = MainActivity.class.getSimpleName();
+public class MainActivity extends BaseActivity {
 
 
     @Override
