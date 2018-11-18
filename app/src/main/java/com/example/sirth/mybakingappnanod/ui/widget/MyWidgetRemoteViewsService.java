@@ -2,11 +2,9 @@ package com.example.sirth.mybakingappnanod.ui.widget;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Looper;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
-import android.widget.Toast;
 
 import com.example.sirth.mybakingappnanod.R;
 import com.example.sirth.mybakingappnanod.data.Ingredient;
@@ -69,8 +67,8 @@ public class MyWidgetRemoteViewsService extends RemoteViewsService {
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_list_item_ingredient);
 
             remoteViews.setTextViewText(R.id.ingredient_name, ingredient.getIngredient());
-            remoteViews.setTextViewText(R.id.measure_and_quantity,
-                    ingredient.getQuantity() + " " + ingredient.getMeasure()+" ");
+                remoteViews.setTextViewText(R.id.measure_and_quantity," "+
+                        ingredient.getQuantity() + " " + ingredient.getMeasure() + " ");
 
 
             Intent fillInIntent = new Intent();
