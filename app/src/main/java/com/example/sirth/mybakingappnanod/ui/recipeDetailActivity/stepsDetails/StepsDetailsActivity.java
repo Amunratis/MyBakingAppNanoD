@@ -33,6 +33,7 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
+import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
@@ -40,7 +41,7 @@ import com.google.android.exoplayer2.util.Util;
 /*This activity is displayed as a separate activity at phones*/
 public class StepsDetailsActivity extends BaseActivity implements View.OnClickListener, Player.EventListener {
 
-    SimpleExoPlayerView mPlayerView;
+    PlayerView mPlayerView;
     SimpleExoPlayer mExoPlayer;
     private static MediaSessionCompat mMediaSession;
     private static final String TAG = StepsDetailsActivity.class.getSimpleName();
@@ -164,8 +165,13 @@ public class StepsDetailsActivity extends BaseActivity implements View.OnClickLi
 
 
     //Player methods thad had to be overrriden
-    @Override
+   /* @Override*/
     public void onTimelineChanged(Timeline timeline, Object manifest) {
+
+    }
+
+    @Override
+    public void onTimelineChanged(Timeline timeline, Object manifest, int reason) {
 
     }
 
@@ -209,7 +215,17 @@ public class StepsDetailsActivity extends BaseActivity implements View.OnClickLi
     }
 
     @Override
+    public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
+
+    }
+
+    @Override
     public void onPlayerError(ExoPlaybackException error) {
+
+    }
+
+    @Override
+    public void onPositionDiscontinuity(int reason) {
 
     }
 
@@ -220,6 +236,11 @@ public class StepsDetailsActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
+    }
+
+    @Override
+    public void onSeekProcessed() {
 
     }
 

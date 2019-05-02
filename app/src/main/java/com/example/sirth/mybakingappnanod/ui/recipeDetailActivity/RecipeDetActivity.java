@@ -130,4 +130,9 @@ public class RecipeDetActivity extends BaseActivity implements FragmentStepsDeta
     @Override
     public void onFragmentInteraction(Uri uri) {
     }
+
+    @Override
+    public void onPositionDiscontinuity() {
+
+    }
 }

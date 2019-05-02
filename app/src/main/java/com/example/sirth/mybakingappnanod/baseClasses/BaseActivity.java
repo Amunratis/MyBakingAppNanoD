@@ -12,7 +12,7 @@ import javax.inject.Inject;
 
 import retrofit2.Retrofit;
 
-public class BaseActivity extends AppCompatActivity{
+public abstract class BaseActivity extends AppCompatActivity{
 
     @Inject public Retrofit retrofit;
 
@@ -22,4 +22,6 @@ public class BaseActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState, persistentState);
         ((App) getApplication()).getNetComponent().inject(this);
     }
+
+    public abstract void onPositionDiscontinuity();
 }

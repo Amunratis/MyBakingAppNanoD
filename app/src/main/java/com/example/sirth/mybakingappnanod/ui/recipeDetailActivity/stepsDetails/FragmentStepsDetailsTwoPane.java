@@ -241,6 +241,11 @@ public class FragmentStepsDetailsTwoPane extends BaseFragment implements View.On
     }
 
     @Override
+    public void onTimelineChanged(Timeline timeline, Object manifest, int reason) {
+
+    }
+
+    @Override
     public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
 
     }
@@ -261,7 +266,17 @@ public class FragmentStepsDetailsTwoPane extends BaseFragment implements View.On
     }
 
     @Override
+    public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
+
+    }
+
+    @Override
     public void onPlayerError(ExoPlaybackException error) {
+
+    }
+
+    @Override
+    public void onPositionDiscontinuity(int reason) {
 
     }
 
@@ -272,6 +287,11 @@ public class FragmentStepsDetailsTwoPane extends BaseFragment implements View.On
 
     @Override
     public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
+    }
+
+    @Override
+    public void onSeekProcessed() {
 
     }
 
